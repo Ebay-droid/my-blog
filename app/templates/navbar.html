@@ -7,14 +7,14 @@
   <div class="collapse navbar-collapse" id="navbarText">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link navbar-right" href="#">Features</a>
       </li>
       {%if current_user.is_authenticated%}
       <li class="nav-item">
-        <a class="nav-link navbar-right" href="{{url_for('main.profile')}}">Profile</a>
+        <a class="nav-link navbar-right" href="{{url_for('main.profile',username=current_user.username)}}">Profile</a>
       </li>
       <li class="nav-item">
         <a class="nav-link navbar-right" href="{{url_for('auth.logout')}}">Sign out</a>

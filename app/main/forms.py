@@ -15,3 +15,4 @@ class CommentForm(FlaskForm):
 class UpdateProfile(FlaskForm):
   gender = SelectField('Gender', choices=[('Male','Male'),('Female','Female')])
   bio = TextAreaField('Tell us more about yourself', validators=[Required()])
+  submit = SubmitField('Submit')

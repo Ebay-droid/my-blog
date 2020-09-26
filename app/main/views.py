@@ -12,7 +12,7 @@ def index():
 
 @main.route('/user/<username>')
 def profile(username):
-  user = User.get_user(username=User.username)
+  user = User.query.filter_by(username=username).first()
   
   if user is None:
     abort(404)
@@ -22,7 +22,7 @@ def profile(username):
 @main.route('/user/<username>/update',methods = ['GET','POST'])
 @login_required 
 def update_profile(username):
-  user = User.get_user(username=username)
+  user = User.query.filter_by(username=username).first()
   
   if user is None:
     abort(404)
@@ -42,7 +42,7 @@ def update_profile(username):
 @main.route('/user/<username>/update/pic',methods=['POST'])
 @login_required
 def update_pic(username):
-  user = User.get_user(username=username)
+  user = User.query.filter_by(username=username).first()
   if 'photo' in request.files:
     filename = photos.save(request.files['photo'])
     path =f'photos/{filename}'
