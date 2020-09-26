@@ -5,7 +5,7 @@ from .. import db
 from . import auth
 from flask_login import login_user,logout_user,login_required
 
-@auth.route('/login')
+@auth.route('/login', methods = ['GET', 'POST'])
 def login():
   login_form = LoginForm()
   if login_form.validate_on_submit():
@@ -16,7 +16,7 @@ def login():
     flash('Invalid username or Password')
     
     
-  title = "watchlist login"
+  title = "Blog login"
   return render_template('auth/login.html', login_form = login_form, title = title)  
 
 @auth.route('/register',methods=["GET","POST"])
