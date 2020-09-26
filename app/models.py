@@ -18,6 +18,8 @@ class User (UserMixin,db.Model):
   username = db.Column(db.String(255),index=True)
   email = db.Column(db.String(255),unique=True,index=True)
   pass_secure = db.Column(db.String(255))
+  # posts = db.relationship('Post',backref = 'author',lazy = "dynamic")
+  comments = db.relationship('Comment',backref = 'author',lazy = "dynamic") 
   
   @property
   def password(self):
@@ -48,6 +50,39 @@ class  Post(db.Model):
      db.session.delete(self)
      db.session.commit() 
      
+     
+  @classmethod
+  def get_posts(cls, user_id):
+    posts= Post.query.filter_by(user_id=user_id).all()   
+     
   def __repr__(self):
     return f'Post{self.post}'   
+  
+class Comment(db.Model):
+  __tablename__ = 'comments'
+  
+  id = db.Column(db.Integer, primary_key=True) 
+  posted = db.Column(db.DateTime,default=datetime.utcnow) 
+  user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
+  comment = db.Column(db.String(255))
+  post_id = db.Column(db.Integer,db.ForeignKey("posts.id"))
+  
+  
+  def save_comment(self):
+    db.session.add(self)
+    db.session.commit()
+    
+  def delete_comment(self):
+    db.session.delete(self)
+    db.session.commit()
+    
+  @classmethod 
+  def get_comments(cls,post_id):
+    comments = Commnt.query.filter_by(post_id=post_id).all()
+    return comments
+      
+    
+     
+  
+  
   
