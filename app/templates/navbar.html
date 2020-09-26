@@ -14,7 +14,7 @@
       </li>
       {%if current_user.is_authenticated%}
       <li class="nav-item">
-        {{current_user.user}}
+        <a class="nav-link navbar-right" href="{{url_for('main.profile')}}">Profile</a>
       </li>
       <li class="nav-item">
         <a class="nav-link navbar-right" href="{{url_for('auth.logout')}}">Sign out</a>
