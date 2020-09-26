@@ -1,9 +1,10 @@
 from flask import render_template,request,redirect,url_for,abort
 from . import main
 from flask_login import login_required,current_user
-from  ..models import User,Post, Comment
+from  ..models import User,Post, Comment,Quotes
 from .. import db,photos
 from . forms import UpdateProfile, CommentForm, PostForm
+from ..request import  get_quotes
 
 @main.route('/')
 def index():
@@ -61,7 +62,7 @@ def new_post():
     
     new_post=Post(title=title,post=post)
     new_post.save_post()
-    return redirect(url_for('.blog'))
+    return redirect(url_for('.all_posts'))
   
   return render_template('new_blog.html',post_form=form)
 
@@ -70,8 +71,9 @@ def all_posts():
   # user = User.query.filter_by(username=username).first()
   posts = Post.query.all()
   user = current_user
+  quote = get_quotes()
   
-  return render_template('blog.html', posts=posts,user=user)
+  return render_template('blog.html', posts=posts,user=user,quote = quote)
 
 @main.route('/blogs/comment/<int:post_id>',methods = ['GET','POST'])
 @login_required
@@ -89,3 +91,10 @@ def new_comment(post_id):
         return redirect(url_for('.index',form =form,post_id =post_id))
     
     return render_template('comments.html', comment_form =form, comments = comments, post_id =post_id)
+  
+# @main.route('/')  
+# @login_required
+# def Quotes():
+#   quote = get_quotes()
+  
+#   return render_template

@@ -3,34 +3,60 @@
 
 {%block content%}
 {%for post in posts [::-1]%}
-  <!-- Card -->
-<div class="card card-cascade wider reverse">
+<div class="row">
+  <div class="col-md-8">
+        <!-- Card -->
+    <div class="card card-cascade wider reverse">
 
- 
+    
 
-  <!-- Card content -->
-  <div class="card-body card-body-cascade text-center">
+      <!-- Card content -->
+      <div class="card-body card-body-cascade text-center">
 
-    <!-- Title -->
-    <h4 class="card-title"><strong>{{post.title}}</strong></h4>
-    <!-- Subtitle -->
-    <h6 class="font-weight-bold indigo-text py-2">Name: {{post.author.username}}</h6>
-    <!-- Text -->
-    <p class="card-text">{{post.post}}
+        <!-- Title -->
+        <h4 class="card-title"><strong>{{post.title}}</strong></h4>
+        <!-- Subtitle -->
+        <h6 class="font-weight-bold indigo-text py-2">Name: {{post.author.username}}</h6>
+        <!-- Text -->
+        <p class="card-text">{{post.post}}
+        </p>
+        <a href="{{url_for('main.new_comment', post_id =post.id)}}"><button class="btn btn-unique">Add Comment</button></a>
+
+
+      </div>
+
+    </div>
+    <!-- Card -->
+  </div>
+  <div class="col-md-4">
+    <!-- Card -->
+<div class="card testimonial-card">
+
+  <!-- Background color -->
+  <div class="card-up indigo lighten-1"></div>
+
+  <!-- Avatar -->
+  <div class="avatar mx-auto white">
+    <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20%2810%29.jpg" class="rounded-circle"
+      alt="woman avatar">
+  </div>
+
+  <!-- Content -->
+  <div class="card-body">
+    <!-- Name -->
+    <h4 class="card-title">{{quote.author}}</h4>
+    <hr>
+    <!-- Quotation -->
+    <p><i class="fas fa-quote-left"></i> {{quote.quote}}
     </p>
-    <a href="{{url_for('main.new_comment', post_id =post.id)}}"><button></button></a>
-
-    <!-- Linkedin -->
-    <a class="px-2 fa-lg li-ic"><i class="fab fa-linkedin-in"></i></a>
-    <!-- Twitter -->
-    <a class="px-2 fa-lg tw-ic"><i class="fab fa-twitter"></i></a>
-    <!-- Dribbble -->
-    <a class="px-2 fa-lg fb-ic"><i class="fab fa-facebook-f"></i></a>
-
   </div>
 
 </div>
 <!-- Card -->
+
+  </div>
+</div>
+
 {%endfor%}
 {%endblock%}
 
