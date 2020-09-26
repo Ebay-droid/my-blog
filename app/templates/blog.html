@@ -1,7 +1,8 @@
 {% extends 'base.html'%}
-{%for post in posts [::-1]%}
+
 
 {%block content%}
+{%for post in posts [::-1]%}
   <!-- Card -->
 <div class="card card-cascade wider reverse">
 
@@ -17,6 +18,7 @@
     <!-- Text -->
     <p class="card-text">{{post.post}}
     </p>
+    <a href="{{url_for('main.new_comment', post_id =post.id)}}"><button></button></a>
 
     <!-- Linkedin -->
     <a class="px-2 fa-lg li-ic"><i class="fab fa-linkedin-in"></i></a>
@@ -29,5 +31,6 @@
 
 </div>
 <!-- Card -->
-
+{%endfor%}
 {%endblock%}
+

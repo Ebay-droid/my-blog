@@ -10,8 +10,12 @@
         <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link navbar-right" href="#">Features</a>
+        <a class="nav-link navbar-right" href="/blogs">Blog-Posts</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link navbar-right" href="/blogs/new_post">Write Post</a>
+      </li>
+
       {%if current_user.is_authenticated%}
       <li class="nav-item">
         <a class="nav-link navbar-right" href="{{url_for('main.profile',username=current_user.username)}}">Profile</a>
@@ -24,9 +28,8 @@
         <a class="nav-link navbar-right" href="{{url_for('auth.login')}}"> Sign in</a>
       </li>
       {%endif%}
+
     </ul>
-    <span class="navbar-text">
-      Navbar text with an inline element
-    </span>
+    
   </div>
 </nav>

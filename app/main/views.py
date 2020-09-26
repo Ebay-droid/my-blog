@@ -65,10 +65,27 @@ def new_post():
   
   return render_template('new_blog.html',post_form=form)
 
-@main.rout('/blogs')
+@main.route('/blogs')
 def all_posts():
-  user = User.query.filter_by(username=username).first()
+  # user = User.query.filter_by(username=username).first()
   posts = Post.query.all()
   user = current_user
   
   return render_template('blog.html', posts=posts,user=user)
+
+@main.route('/blogs/comment/<int:post_id>',methods = ['GET','POST'])
+@login_required
+def new_comment(post_id):
+    form = CommentForm()
+    comments = Comment.get_comments(post_id)
+    
+    if form.validate_on_submit():
+        comment = form.comment.data
+        post_id = post_id
+        new_comment = Comment(comment = comment, post_id=post_id)
+        
+        
+        new_comment.save_comment()
+        return redirect(url_for('.index',form =form,post_id =post_id))
+    
+    return render_template('comments.html', comment_form =form, comments = comments, post_id =post_id)

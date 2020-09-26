@@ -1,0 +1,31 @@
+{%extends 'base.html'%}
+
+{% import "bootstrap/wtf.html" as wtf %}
+{% block content%}
+
+<div class=" container">
+  <div class="row">
+    <div class="col-md-6">
+      {{ wtf.quick_form(comment_form) }}
+
+    </div>
+    {%for comment in comments%}
+    <div class="card">
+      <div class="card-header">
+        Pitch
+      </div>
+      <div class="card-body">
+        <blockquote class="blockquote mb-0">
+        <p>{{comment.comment}}</p>
+          <footer class="blockquote-footer">Written by: <cite title="Source Title">{{comment.author.username}}</cite></footer>
+        </blockquote>
+      </div>
+    </div>
+    {%endfor%}
+  </div>
+
+
+</div>
+
+
+{%endblock%}
