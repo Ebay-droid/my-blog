@@ -10,13 +10,13 @@
 
           <!--Displaying user bio-->
           {% if user.bio %}
-            <p> {{user.bio}}</p>
+            <p>Bio: {{user.bio}}</p>
           {%else%}
             <p> {{user.username| capitalize}} has no bio </p>
           {% endif %}
           <br>
           {%if user.gender%}
-          <p>{{user.gender}}</p>
+          <p>Gender: {{user.gender}}</p>
           {%endif%}
         </div>
 

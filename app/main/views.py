@@ -50,3 +50,25 @@ def update_pic(username):
     db.session.commit()
   return redirect(url_for('main.profile', username=username))  
     
+    
+@main.route('/blogs/new_post', methods=['GET','POST'])
+@login_required
+def new_post():
+  form = PostForm()
+  if form.validate_on_submit():
+    title = form.title.data
+    post=form.post.data
+    
+    new_post=Post(title=title,post=post)
+    new_post.save_post()
+    return redirect(url_for('.blog'))
+  
+  return render_template('new_blog.html',post_form=form)
+
+@main.rout('/blogs')
+def all_posts():
+  user = User.query.filter_by(username=username).first()
+  posts = Post.query.all()
+  user = current_user
+  
+  return render_template('blog.html', posts=posts,user=user)
