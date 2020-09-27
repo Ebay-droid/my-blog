@@ -69,12 +69,12 @@ def new_post():
 
 @main.route('/blogs')
 def all_posts():
-  posts = Post.query.all()
+  post = Post.query.all()
   user = current_user
   user = User.query.filter_by(username='username').first()
   quote = get_quotes()
   
-  return render_template('blog.html', posts=posts,user=user,quote = quote)
+  return render_template('blog.html', posts=post,user=user,quote = quote)
 
 @main.route('/blogs/comment/<int:post_id>',methods = ['GET','POST'])
 @login_required
@@ -95,17 +95,7 @@ def new_comment(post_id):
     
     return render_template('comments.html', comment_form =form, comments = comments, post_id =post_id)
 
-# @main.route('/blogs/comment/<int:post_id>/delete')
-# @login_required
-# def delete(comment_id):
-  
-  
-  
-  
-  
- 
-  
-#   return render_template('comments.html',comment_id=comment_id)  
+
 
 @main.route('/blog/<int:post_id>/update', methods=['GET','POST'])
 @login_required
@@ -125,7 +115,7 @@ def update_post(post_id):
     form.title.data = post.title
     form.post.data = post.post
       
-  return render_template('blog.html',post_form=form,post=post, legend = 'Post Update')    
+  return render_template('blog.html',post_form=form,posts=post, legend = 'Post Update')    
         
 
 @main.route('/blogs/<int:post_id>/delete')
@@ -135,10 +125,12 @@ def delete_blog(post_id):
   single_post = Post.query.get(post_id)
   quote = get_quotes()
   
-  if single_post.author != current_user:
-    abort(403)
+  # if single_post.author != current_user:
+  #   abort(403)
     
-  Post.delete_post(post_id)
+  # Post.delete_post(post_id)
+  db.session.delete(single_post)
+  db.session.commit()
   return redirect(url_for('.all_posts',posts=posts,quote=quote))
      
   

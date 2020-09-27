@@ -3,14 +3,14 @@
 
 {%block content%}
 <div class="row">
-  {%for post in posts [::-1]%}
+  {%for blog in posts [::-1]%}
 
   <div class="col-md-8">
         <!-- Card -->
         <h3>{{legend}}</h3>
     <div class="card card-cascade wider reverse">
       <div class="card-image">
-        <img class="img-thumbnail img-rounded" src="{{url_for('static',filename = post.author.profile_pic_path)}}" alt="">
+        <img class="img-thumbnail img-rounded" src="{{url_for('static',filename = blog.author.profile_pic_path)}}" alt="">
       </div>
 
     
@@ -19,15 +19,15 @@
       <div class="card-body card-body-cascade text-center">
 
         <!-- Title -->
-        <h4 class="card-title"><strong>{{post.title}}</strong></h4>
+        <h4 class="card-title"><strong>{{blog.title}}</strong></h4>
         <!-- Subtitle -->
-        <h6 class="font-weight-bold indigo-text py-2">Name: {{post.author.username}}</h6>
+        <h6 class="font-weight-bold indigo-text py-2">Name: {{blog.author.username}}</h6>
         <!-- Text -->
-        <p class="card-text">{{post.post}}
+        <p class="card-text">{{blog.post}}
         </p>
-        <a href="{{url_for('main.new_comment', post_id =post.id)}}"><button class="btn btn-unique">Add Comment</button></a>
-        <a href="{{url_for('main.update_post',post_id = post.id)}}"><button class="btn btn-blue-grey">Update</button></a>
-        <a href="{{url_for('main.delete_blog',post_id=post.id)}}"><button class="btn btn-elegant">Delete</button></a>
+        <a href="{{url_for('main.new_comment', post_id =blog.id)}}"><button class="btn btn-unique">Add Comment</button></a>
+        <a href="{{url_for('main.update_post',post_id = blog.id)}}"><button class="btn btn-blue-grey">Update</button></a>
+        <a href="{{url_for('main.delete_blog',post_id=blog.id)}}"><button class="btn btn-elegant">Delete</button></a>
 
 
       </div>
