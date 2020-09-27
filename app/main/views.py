@@ -64,13 +64,14 @@ def new_post():
     new_post.save_post()
     return redirect(url_for('.all_posts'))
   
-  return render_template('new_blog.html',post_form=form)
+  
+  return render_template('new_blog.html',post_form=form, legend='New_Post')
 
 @main.route('/blogs')
 def all_posts():
-  # user = User.query.filter_by(username=username).first()
   posts = Post.query.all()
   user = current_user
+  user = User.query.filter_by(username='username').first()
   quote = get_quotes()
   
   return render_template('blog.html', posts=posts,user=user,quote = quote)
@@ -89,12 +90,56 @@ def new_comment(post_id):
         
         new_comment.save_comment()
         return redirect(url_for('.index',form =form,post_id =post_id))
+      
+      
     
     return render_template('comments.html', comment_form =form, comments = comments, post_id =post_id)
-  
-# @main.route('/')  
+
+# @main.route('/blogs/comment/<int:post_id>/delete')
 # @login_required
-# def Quotes():
-#   quote = get_quotes()
+# def delete(comment_id):
   
-#   return render_template
+  
+  
+  
+  
+ 
+  
+#   return render_template('comments.html',comment_id=comment_id)  
+
+@main.route('/blog/<int:post_id>/update', methods=['GET','POST'])
+@login_required
+def update_post(post_id):
+  post = Post.query.get(post_id)
+  if post.author != current_user:
+    abort(403)
+    
+  form = PostForm()
+  if form.validate_on_submit():
+    post.title = form.title.data
+    post.post=form.post.data
+    db.session.commit()
+    
+    return redirect(url_for('.all_posts',id=post.id))
+  if request.method == 'GET':
+    form.title.data = post.title
+    form.post.data = post.post
+      
+  return render_template('blog.html',post_form=form,post=post, legend = 'Post Update')    
+        
+
+@main.route('/blogs/<int:post_id>/delete')
+@login_required 
+def delete_blog(post_id):
+  posts = Post.query.all() 
+  single_post = Post.query.get(post_id)
+  quote = get_quotes()
+  
+  if single_post.author != current_user:
+    abort(403)
+    
+  Post.delete_post(post_id)
+  return redirect(url_for('.all_posts',posts=posts,quote=quote))
+     
+  
+  

@@ -18,8 +18,8 @@ class User (UserMixin,db.Model):
   username = db.Column(db.String(255),index=True)
   email = db.Column(db.String(255),unique=True,index=True)
   pass_secure = db.Column(db.String(255))
-  posts = db.relationship('Post',backref = 'author',lazy = "dynamic")
-  comments = db.relationship('Comment',backref = 'author',lazy = "dynamic") 
+  post = db.relationship('Post',backref = 'author',lazy = "dynamic")
+  comments = db.relationship('Comment',backref = 'input',lazy = "dynamic") 
   bio = db.Column(db.String(255))
   gender = db.Column(db.String(255))
   profile_pic_path = db.Column(db.String(255))
@@ -65,7 +65,7 @@ class  Post(db.Model):
      
   @classmethod
   def get_posts(cls, user_id):
-    post= Post.query.filter_by(user_id=user_id).all()   
+    post= Post.query.filter_by(user_id=id).all()   
     return post
     
      
@@ -92,8 +92,12 @@ class Comment(db.Model):
     
   @classmethod 
   def get_comments(cls,post_id):
-    comments = Comment.query.filter_by(post_id=post_id).all()
-    return comments
+    all_comments = Comment.query.filter_by(post_id=post_id).all()
+    return all_comments
+  @classmethod
+  def single_comment (cls,comment_id):
+    comment=Comment.query.filter_by(comment_id=comment_id).first()
+    return comment
       
   def __repr__(self):
     return f'comment:{self.comment}'    
