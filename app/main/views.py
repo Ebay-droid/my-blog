@@ -132,6 +132,12 @@ def delete_blog(post_id):
   db.session.delete(single_post)
   db.session.commit()
   return redirect(url_for('.all_posts',posts=posts,quote=quote))
+
+@main.route('/subscribe')
+@login_required
+def subscribe():
+  
+  return render_template('subscribe.html')
      
   
   
