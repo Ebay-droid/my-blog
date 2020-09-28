@@ -8,7 +8,7 @@ class  Config:
   QUOTES_API ='http://quotes.stormconsultancy.co.uk/random.json'
   
 class  ProdConfig(Config):
-  pass
+  
 
 
 class DevConfig(Config):
