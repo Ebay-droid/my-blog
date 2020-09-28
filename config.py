@@ -8,7 +8,7 @@ class  Config:
   QUOTES_API ='http://quotes.stormconsultancy.co.uk/random.json'
   
 class  ProdConfig(Config):
-  
+  DATABASE_URL= os.environ.get('DATABASE_URL')
 
 
 class DevConfig(Config):
