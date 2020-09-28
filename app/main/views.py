@@ -135,6 +135,22 @@ def delete_blog(post_id):
   db.session.commit()
   return redirect(url_for('.all_posts',posts=posts,quote=quote))
 
+@main.route('/blogs/<int:post_id>/delete')
+@login_required 
+def delete_comment(comment_id):
+  posts = Post.query.all() 
+  single_post = Post.query.get(post_id)
+  quote = get_quotes()
+  if single_post.author != current_user.id:
+    abort(403)
+    
+  # Post.delete_post(post_id)
+  
+  db.session.delete(single_post)
+  db.session.commit()
+  return redirect(url_for('.all_posts',posts=posts,quote=quote))
+
+
 @main.route('/subscribe')
 @login_required
 def subscribe():

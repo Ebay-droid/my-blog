@@ -19,7 +19,8 @@
         </blockquote>
       </div>
       <div class="card-footer">
-        <a href=""><button class="btn btn-amber">Delete</button></a>
+        <a href="{{url_for('main.delete_blog',post_id=blog.id)}}"><button class="btn btn-elegant">Delete</button></a>
+
       </div>
     </div>
     {%endfor%}
