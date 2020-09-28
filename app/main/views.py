@@ -60,12 +60,14 @@ def new_post():
     title = form.title.data
     post=form.post.data
     
-    new_post=Post(title=title,post=post)
+    
+    new_post=Post(title=title,post=post, author=current_user.id)
+    
     new_post.save_post()
     return redirect(url_for('.all_posts'))
   
   
-  return render_template('new_blog.html',post_form=form, legend='New_Post')
+  return render_template('new_blog.html',post_form=form, legend='New_Post' )
 
 @main.route('/blogs')
 def all_posts():
@@ -101,7 +103,7 @@ def new_comment(post_id):
 @login_required
 def update_post(post_id):
   post = Post.query.get(post_id)
-  if post.author != current_user:
+  if post.author != current_user.id:
     abort(403)
     
   form = PostForm()
@@ -124,11 +126,11 @@ def delete_blog(post_id):
   posts = Post.query.all() 
   single_post = Post.query.get(post_id)
   quote = get_quotes()
-  
-  # if single_post.author != current_user:
-  #   abort(403)
+  if single_post.author != current_user.id:
+    abort(403)
     
   # Post.delete_post(post_id)
+  
   db.session.delete(single_post)
   db.session.commit()
   return redirect(url_for('.all_posts',posts=posts,quote=quote))

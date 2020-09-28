@@ -18,7 +18,7 @@ class User (UserMixin,db.Model):
   username = db.Column(db.String(255),index=True)
   email = db.Column(db.String(255),unique=True,index=True)
   pass_secure = db.Column(db.String(255))
-  post = db.relationship('Post',backref = 'author',lazy = "dynamic")
+  post = db.relationship('Post',backref = 'user',lazy = "dynamic")
   comments = db.relationship('Comment',backref = 'input',lazy = "dynamic") 
   bio = db.Column(db.String(255))
   gender = db.Column(db.String(255))
@@ -52,7 +52,7 @@ class  Post(db.Model):
   post = db.Column(db.String(255))
   posted = db.Column(db.DateTime,default=datetime.utcnow) 
   comment = db.relationship('Comment', backref = 'post',lazy ="dynamic")
-  user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
+  author = db.Column(db.Integer,db.ForeignKey("users.id"))
   
   def save_post(self):
     db.session.add(self)
