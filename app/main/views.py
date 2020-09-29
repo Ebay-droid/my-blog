@@ -117,7 +117,7 @@ def update_post(post_id):
     form.title.data = post.title
     form.post.data = post.post
       
-  return render_template('blog.html',post_form=form,posts=post, legend = 'Post Update')    
+  return render_template('blog.html',post_form=form, legend = 'Post Update')    
         
 
 @main.route('/blogs/<int:post_id>/delete')
