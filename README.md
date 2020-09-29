@@ -15,5 +15,7 @@ Option 2: Go to the link in the description
 The application was created using the python microframework flask
 
 ## Licence:
+ GNU GENERAL PUBLIC LICENSE
+ https://raw.githubusercontent.com/Ebay-droid/my-blog/master/LICENSE
 
 ##

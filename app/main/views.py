@@ -138,11 +138,12 @@ def delete_blog(post_id):
 def delete_comment(comment_id):
 
   posts = Post.query.all() 
+  
   all_comments = Comment.query.all()
   single_comment = Comment.query.get(comment_id)
   
-  if single_comment.input != current_user:
-    abort(403)
+  # if single_comment.input != current_user.id:
+  #   abort(403)
     
   
   db.session.delete(single_comment)

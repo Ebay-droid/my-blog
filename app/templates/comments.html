@@ -19,8 +19,11 @@
         </blockquote>
       </div>
       <div class="card-footer">
-        <a href="{{url_for(main.delete_comment, comment_id = comment.id)}}"><button class="btn btn-elegant">Delete</button></a>
-
+        {%if current_user == comment.user%}
+          <form action="{{url_for('main.delete_comment', comment_id = comment.id)}}", method="POST">
+            <input type="submit" class="btn btn-cyan" value="Delete">
+          </form>
+          {%endif%}
       </div>
     </div>
     {%endfor%}
