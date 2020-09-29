@@ -5,6 +5,12 @@ from  ..models import User,Post, Comment,Quotes
 from .. import db,photos
 from . forms import UpdateProfile, CommentForm, PostForm
 from ..request import  get_quotes
+from werkzeug.contrib.atom import AtomFeed
+from urllib.parse import urljoin
+
+def get_abs_url(url):
+    """ Returns absolute url by joining post url with base url """
+    return urljoin(request.url_root, url)
 
 @main.route('/')
 def index():
@@ -159,5 +165,18 @@ def subscribe():
   
   return render_template('subscribe.html')
      
-  
+@main.route('/feeds')
+def feeds():
+    feed = AtomFeed(title='Latest Posts from My Blog',
+                    feed_url=request.url, url=request.url_root)
+    # Sort post by created date
+    blogs = Post.query.all()
+    for post in blogs:
+        feed.add(post.title, post.posted,
+                 content_type='html',
+                 id = post.id,
+                 author= post.user.username,
+                 published=post.posted,
+                 updated=post.posted)
+    return feed.get_response()  
   
