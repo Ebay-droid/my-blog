@@ -71,12 +71,12 @@ def new_post():
 
 @main.route('/blogs')
 def all_posts():
-  post = Post.query.all()
+  posts = Post.query.all()
   user = current_user
   user = User.query.filter_by(username='username').first()
   quote = get_quotes()
   
-  return render_template('blog.html', posts=post,user=user,quote = quote)
+  return render_template('blog.html', posts=posts,user=user,quote = quote)
 
 @main.route('/blogs/comment/<int:post_id>',methods = ['GET','POST'])
 @login_required
@@ -102,7 +102,9 @@ def new_comment(post_id):
 @main.route('/blog/<int:post_id>/update', methods=['GET','POST'])
 @login_required
 def update_post(post_id):
+  posts = Post.query.all()
   post = Post.query.get(post_id)
+  quote = get_quotes()
   if post.author != current_user.id:
     abort(403)
     
@@ -117,7 +119,7 @@ def update_post(post_id):
     form.title.data = post.title
     form.post.data = post.post
       
-  return render_template('blog.html',post_form=form, legend = 'Post Update')    
+  return render_template('new_blog.html',post_form=form,posts=posts,quote=quote, legend = 'Post Update')    
         
 
 @main.route('/blogs/<int:post_id>/delete')
