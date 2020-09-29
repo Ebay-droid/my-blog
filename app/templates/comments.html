@@ -19,7 +19,7 @@
         </blockquote>
       </div>
       <div class="card-footer">
-        <a href=""><button class="btn btn-elegant">Delete</button></a>
+        <a href="{{url_for(main.delete_comment, comment_id = comment.id)}}"><button class="btn btn-elegant">Delete</button></a>
 
       </div>
     </div>

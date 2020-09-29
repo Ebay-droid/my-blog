@@ -51,7 +51,6 @@ class  Post(db.Model):
   title = db.Column(db.String(255))
   post = db.Column(db.String(255))
   posted = db.Column(db.DateTime,default=datetime.utcnow) 
-  comment = db.relationship('Comment', backref = 'post',lazy ="dynamic")
   author = db.Column(db.Integer,db.ForeignKey("users.id"))
   
   def save_post(self):
