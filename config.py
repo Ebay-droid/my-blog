@@ -16,7 +16,7 @@ class DevConfig(Config):
   
 class TestConfig(Config):
   SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://ebay:qwerty@localhost/test_my_blog'
-  
+  pass
 
 config_options = {
   'development':DevConfig,
