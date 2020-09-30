@@ -6,34 +6,39 @@
   {%for blog in posts [::-1]%}
 
   <div class="col-md-8">
-        <!-- Card -->
-        <h3>{{legend}}</h3>
-    <div class="card card-cascade wider reverse">
-      <div class="card-image">
-        <img class="img-thumbnail img-rounded" src="{{url_for('static',filename = blog.author.profile_pic_path)}}" alt="">
-      </div>
+    <h3>{{legend}}</h3>
+    <!-- Jumbotron -->
+<div class="jumbotron text-center">
 
-    
+  <!-- Title -->
+  <h2 class="card-title h2">{{blog.title}}</h2>
+  <!-- Subtitle -->
+  <p class="blue-text my-4 font-weight-bold">Name: {{blog.user.username}}</p>
 
-      <!-- Card content -->
-      <div class="card-body card-body-cascade text-center">
+  <!-- Grid row -->
+  <div class="row d-flex justify-content-center">
 
-        <!-- Title -->
-        <h4 class="card-title"><strong>{{blog.title}}</strong></h4>
-        <!-- Subtitle -->
-        <h6 class="font-weight-bold indigo-text py-2">Name: {{blog.user.username}}</h6>
-        <!-- Text -->
-        <p class="card-text">{{blog.post}}
-        </p>
-        <a href="{{url_for('main.new_comment', post_id =blog.id)}}"><button class="btn btn-unique">Add Comment</button></a>
-        <a href="{{url_for('main.update_post',post_id = blog.id)}}"><button class="btn btn-blue-grey">Update</button></a>
-        <a href="{{url_for('main.delete_blog',post_id=blog.id)}}"><button class="btn btn-elegant">Delete</button></a>
+    <!-- Grid column -->
+    <div class="col-xl-7 pb-2">
 
-
-      </div>
+      <p class="card-text">{{blog.post}}</p>
 
     </div>
-    <!-- Card -->
+    <!-- Grid column -->
+
+  </div>
+  <!-- Grid row -->
+
+  <hr class="my-4">
+
+  <div class="pt-2">
+    <a href="{{url_for('main.new_comment', post_id =blog.id)}}"><button class="btn btn-unique waves-effect">Add Comment</button></a>
+    <a href="{{url_for('main.update_post',post_id = blog.id)}}"><button class="btn btn-blue-grey waves-effect">Update</button></a>
+    <a href="{{url_for('main.delete_blog',post_id=blog.id)}}"><button class="btn btn-elegant waves-effect">Delete</button></a>
+</div>
+
+</div>
+<!-- Jumbotron -->
   </div>
 
   {%endfor%}
